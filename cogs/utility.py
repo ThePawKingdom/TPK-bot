@@ -79,6 +79,53 @@ __**Statistics**__
 """
         await ctx.send(embed=e)
 
+    @commands.command(alias=["si"])
+    async def serverinfo(self, ctx):
+        """
+        Display information about this server
+        """
+        human = sum(not member.bot for member in ctx.guild.members)
+        bots = sum(member.bot for member in ctx.guild.members)
+        features = ", ".join(ctx.guild.features).lower().replace('_', ' ').title() if len(ctx.guild.features) != 0 else None
+        verification = str(ctx.guild.verification_level).capitalize()
+        nitromsg = f"This server has **{ctx.guild.premium_subscription_count}** boosts"
+        nitromsg += f"\n{default.next_level(ctx)}"
+        num = sum(1 for user in ctx.guild.members if (ctx.channel.permissions_for(user).kick_members or ctx.channel.permissions_for(user).ban_members) and not user.bot)
+        bans = ''
+        if ctx.channel.permissions_for(ctx.guild.me).ban_members:
+            bans += f"**Banned:** {len(await ctx.guild.bans()):,}"
+
+        e = discord.Embed(color=colors.green)
+        e.set_author(icon_url=ctx.guild.icon.url if ctx.guild.icon else self.bot.user.display_avatar.url, name="About " + ctx.guild.name)
+        e.set_thumbnail(url=ctx.guild.icon.url if ctx.guild.icon else self.bot.user.display_avatar.url)
+        e.add_field(
+            name="General Information:",
+            value=f"""
+**Name:** {ctx.guild.name}
+**ID:** {ctx.guild.id}
+**Created on** {times.discord_time_format(ctx.guild.created_at)}
+**Verification level:** {verification}
+
+**Owner:** {ctx.guild.owner}
+**Owner ID:** {ctx.guild.owner.id}
+
+**Nitro status:** 
+{nitromsg}
+""",
+            inline=True)
+
+        e.add_field(
+            name="Other Information:",
+            value=f"""
+**Members:** {ctx.guild.member_count:,}
+**Humans:** {human} | **Bots:** {bots}
+**Staff:** {num}
+{bans}
+""",
+            inline=True)
+        e.add_field(name="Features:", value=features, inline=False)
+        await ctx.send(embed=e)
+
 
 def setup(bot):
     bot.add_cog(Utility(bot))
