@@ -1,5 +1,5 @@
 from discord.ext import commands
-from utility.helpmenu import PenguinHelp
+from utils.helpmenu import PenguinHelp
 
 class HelpCog(commands.Cog, name="HelpMenu"):
     def __init__(self, bot):
