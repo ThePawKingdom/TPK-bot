@@ -51,7 +51,8 @@ class Bot(commands.AutoShardedBot):
             reconnect=True,
             allowed_mentions=discord.AllowedMentions.none(),
             max_messages=10000,
-            intents=discord.Intents.all()
+            intents=discord.Intents.all(),
+            slash_commands=True
         )
 
         for extension in cogs.extensions:
