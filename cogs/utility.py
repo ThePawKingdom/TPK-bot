@@ -5,7 +5,8 @@ import aiohttp
 import re
 import psutil as psutil
 
-from settings import links
+from settings import links, colors
+from utils import times, default
 from collections import Counter
 from discord.ext import commands
 
