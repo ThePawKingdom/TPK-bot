@@ -1,6 +1,12 @@
+import platform
 import time
+import discord
 import aiohttp
+import re
+import psutil as psutil
 
+from settings import links
+from collections import Counter
 from discord.ext import commands
 
 
