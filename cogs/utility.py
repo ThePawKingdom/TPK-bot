@@ -3,8 +3,9 @@ import time
 import discord
 import aiohttp
 import re
-import psutil as psutil
+import typing
 
+import psutil as psutil
 from settings import links, colors
 from utils import times, default
 from collections import Counter
