@@ -1,6 +1,6 @@
 import discord, config, asyncio
 from discord.ext import commands, menus
-from utility.paginator import Pages
+from utils.paginator import Pages
 from settings import links, emotes
 
 
