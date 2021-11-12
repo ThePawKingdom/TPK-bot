@@ -25,7 +25,7 @@ class Utility(commands.Cog, name="Utility"):
             async with session.get('https://discord.com') as r:
                 if r.status == 200:
                     discord_end = time.monotonic()
-                    discord_ms = f"{round((discord_end - discord_start) * 1000)}ms"
+                    discord_ms = f"**{round((discord_end - discord_start) * 1000)}**ms"
                 else:
                     discord_ms = "fucking dead"
                 await ctx.send(f"\U0001f3d3 Pong   |   {discord_ms}")
