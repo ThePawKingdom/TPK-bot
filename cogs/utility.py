@@ -127,6 +127,109 @@ __**Statistics**__
         e.add_field(name="Features:", value=features, inline=False)
         await ctx.send(embed=e)
 
+    @commands.command(alias=["ui"])
+    async def userinfo(self, ctx, user: typing.Union[discord.User, str] = None):
+        """
+        Get info about users on discord
+        """
+        if user is None:
+            user = ctx.author
+
+        user = await default.find_user(ctx, user)
+
+        if not user:
+            return await ctx.reply(':warning: I could not find this user!')
+
+        e = discord.Embed(color=colors.green)
+        e.set_author(icon_url=user.avatar.url, name="About " + user.name)
+
+        member = ctx.guild.get_member(user.id)
+
+        if member:
+            uroles = [role.mention for role in member.roles if not role.is_default()]
+            uroles.reverse()
+            if len(uroles) > 15:
+                uroles = [f"{', '.join(uroles[:10])} (+{len(member.roles) - 11})"]
+            user_roles = f' **({len(member.roles) - 1} Total)**' if uroles != [] else 'No roles'
+
+            if times.discord_time_format(member.joined_at):
+                join = times.discord_time_format(member.joined_at)
+            else:
+                join = 'Unknown'
+
+            e.add_field(name="General Information:", value=f"""
+{user.name}
+
+**User ID:** {user.id}
+**Created on** {times.discord_time_format(user.created_at)}
+
+
+""",
+                        inline=False)
+            e.add_field(name="Server Information:", value=f"""
+**Nickname:** {user.display_name}
+**Joined At:** {join}
+**Roles:** {', '.join(uroles) + user_roles}
+""",
+                        inline=False)
+        else:
+            e.add_field(name="General Information:", value=f"""
+{user.name}
+
+**User ID:** {user.id}
+**Created on:** {times.discord_time_format(user.created_at)}
+""",
+                        inline=False)
+
+            avatar = user.avatar or user.display_avatar
+            if not avatar.is_animated():
+                e.set_thumbnail(url=avatar.with_format('png').url)
+            elif avatar.is_animated():
+                e.set_thumbnail(url=avatar.with_format('gif').url)
+            else:
+                e.set_thumbnail(url=user.avatar.url if user.avatar else user.display_avatar.url)
+
+        await ctx.send(embed=e)
+
+    @commands.command()
+    async def roleinfo(self, ctx, role: discord.Role):
+        position = len(ctx.guild.roles) - role.position
+        permissions = dict(role.permissions)
+        perms = []
+        for perm in permissions.keys():
+            if permissions[
+                perm] is True and not role.permissions.administrator:  # I guess role.permissions.administrator works, not sure
+                perms.append(perm.lower().replace('_', ' ').title())
+
+        if role.permissions.administrator:
+            perms.append("Administrator")
+
+        rolemembers = []
+        for member in role.members:
+            rolemembers.append(member.name)
+
+        if len(rolemembers) > 10:
+            rolemembers = [f"{', '.join(rolemembers[:10])} (+{len(role.members) - 11})"]
+
+        e = discord.Embed(title="About " + role.name, color=role.color)
+        e.add_field(name="General Information:", value=f"""
+**Role name:** {role.name}
+**Role ID:** {role.id}
+**Role mention:** {role.mention}
+""",
+                    inline=False)
+        e.add_field(name="Other Information:", value=f"""
+**Is Integration:** {role.is_integration()}
+**Hoisted:** {role.hoist}
+**Position:** {position}
+**Color:** {role.color}
+**Created:** {times.discord_time_format(role.created_at)}
+""",
+                    inline=False)
+        e.add_field(name="Permissions:", value=', '.join(perms), inline=False)
+        e.add_field(name="Members:", value=', '.join(rolemembers), inline=False)
+
+        await ctx.send(embed=e)
 
 def setup(bot):
     bot.add_cog(Utility(bot))
