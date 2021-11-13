@@ -193,12 +193,14 @@ __**Statistics**__
 
     @commands.command()
     async def roleinfo(self, ctx, role: discord.Role):
+        """
+        Get information about a role
+        """
         position = len(ctx.guild.roles) - role.position
         permissions = dict(role.permissions)
         perms = []
         for perm in permissions.keys():
-            if permissions[
-                perm] is True and not role.permissions.administrator:  # I guess role.permissions.administrator works, not sure
+            if permissions[perm] is True and not role.permissions.administrator:
                 perms.append(perm.lower().replace('_', ' ').title())
 
         if role.permissions.administrator:
