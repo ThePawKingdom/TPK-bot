@@ -44,5 +44,34 @@ class Admin(commands.Cog, name="Admin"):
         except Exception:
             pass
 
+    @suggestion.command()
+    @commands.is_owner()
+    async def deny(self, ctx, msg_id: int, *, reason: commands.clean_content):
+        suggestion = await self.bot.database.fetch("SELECT * FROM suggestions WHERE msg_id = $1", msg_id)
+
+        if not suggestion:
+            return await ctx.send(":warning: This suggestion does not seem to exist. Are you sure you are providing a message ID?")
+
+        user = await self.bot.fetch_user(suggestion[0]['user_id'])
+        suggestion_content = f"{suggestion[0]['suggestion']}"
+        suggestion_message = suggestion[0]['msg_id']
+
+        message = await self.bot.get_guild(links.mainguild).get_channel(links.suggestions).fetch_message(suggestion_message)
+        embed = message.embeds[0]
+
+        embed.color = colors.red
+        embed.add_field(name="Suggestion denied:", value=reason, inline=False)
+        embed.set_footer(text=f"Denied by {ctx.author}")
+        await message.clear_reactions()
+        await message.edit(embed=embed)
+
+        e = discord.Embed(color=colors.red)
+        e.description = f"Your suggestion has been denied by {ctx.author}:\n**Denied with reason:** {reason}\n\n**suggestion:**\n{suggestion_content}"
+        e.set_author(name=f"Suggested by {user}", icon_url=user.avatar.url if user.avatar else user.display_avatar.url)
+        try:
+            await user.send(embed=e)
+        except Exception:
+            pass
+
 def setup(bot):
     bot.add_cog(Admin(bot))
