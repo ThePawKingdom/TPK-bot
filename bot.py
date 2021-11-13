@@ -23,6 +23,7 @@ async def run():
         await db.execute("CREATE TABLE IF NOT EXISTS moneylogs (guild_id BIGINT PRIMARY KEY, channel_id BIGINT)")
         await db.execute("CREATE TABLE IF NOT EXISTS guildprefix (guild_id BIGINT PRIMARY KEY, prefix TEXT)")
         await db.execute("CREATE TABLE IF NOT EXISTS moneytype (guild_id BIGINT PRIMARY KEY, currency TEXT)")
+        await db.execute("CREATE TABLE IF NOT EXISTS suggestions (msg_id BIGINT PRIMARY KEY, user_id BIGINT, suggestion TEXT)")
         res = await db.fetch('SELECT * FROM blacklist')
         for the_id in res:
             bot.blacklist[the_id['id']] = the_id['reason']
