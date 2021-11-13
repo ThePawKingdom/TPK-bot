@@ -1,1 +1,1 @@
-extensions = ["jishaku", "cogs.help", "cogs.utility"]
+extensions = ["jishaku", "cogs.help", "cogs.utility", "cogs.admin"]
