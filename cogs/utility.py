@@ -233,5 +233,67 @@ __**Statistics**__
 
         await ctx.send(embed=e)
 
+    @commands.command()
+    async def invite(self, ctx):
+        """
+        Invite me to your server!
+        """
+        e = discord.Embed(description=f"You can invite me to your server [here]({links.invite})" + '\n'
+                                      f"Invite without slash commands [here]({links.plaininvite})", color=colors.green)
+        await ctx.send(embed=e)
+
+    @commands.command()
+    async def privacy(self, ctx):
+        """ Get the privacy policy for BadWolf """
+        e = discord.Embed(description=f"{self.bot.user.name} does not gather data. For questions, [join the support server]({links.support})", color=colors.green)
+        await ctx.send(embed=e)
+
+    @commands.command()
+    async def support(self, ctx):
+        """ Get the support server link """
+        e = discord.Embed(description=f"You can join our support server [here]({links.support})", color=colors.green)
+        await ctx.send(embed=e)
+
+    @commands.command()
+    async def avatar(self, ctx, *, user: discord.User = None):
+        if user is None:
+            user = ctx.author
+
+        embed = discord.Embed(color=colors.green)
+        embed.set_author(name=f"{user}'s Profile Picture!",
+                         icon_url=user.avatar.url if user.avatar else user.display_avatar.url)
+        png = user.avatar.with_format('png').url if user.avatar else user.display_avatar.with_format('png').url
+        jpg = user.avatar.with_format('jpg').url if user.avatar else user.display_avatar.with_format('jpg').url
+        webp = user.avatar.with_format('webp').url if user.avatar else user.display_avatar.with_format('webp').url
+        gif = user.avatar.with_format(
+            'gif').url if user.avatar and user.avatar.is_animated() else user.display_avatar.with_format(
+            'gif').url if user.display_avatar.is_animated() else None
+        display = user.display_avatar.with_format(
+            'gif').url if user.display_avatar.is_animated() else user.display_avatar.with_format('png').url
+        embed.description = f"[png]({png}) | [jpg]({jpg}) | [webp]({webp}){f' | [gif]({gif})' if gif else ''}"
+        embed.set_image(url=display)
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    @commands.cooldown(1, 30, commands.BucketType.user)
+    async def suggest(self, ctx, *, suggestion):
+        channel = await self.bot.fetch_channel(907617618180075580)
+
+        if len(suggestion) > 1000:
+            return await ctx.send(":warning: Suggestions can not be more then 1000 characters.")
+
+        embed = discord.Embed(color=colors.orange, title='New suggestion')
+        embed.set_author(icon_url=ctx.author.avatar.url, name=ctx.author.name + f' ({ctx.author.id} ')
+        embed.description = suggestion
+        msg = await channel.send(embed=embed)
+        await msg.add_reaction('👍')
+        await msg.add_reaction('👎')
+        await self.bot.database.execute("INSERT INTO suggestions(suggestion, user_id, msg_id) VALUES($1, $2, $3)", suggestion, ctx.author.id, msg.id)
+
+        e = discord.Embed(color=colors.orange)
+        e.description = f'Your suggestion has been sent to [our support server]({links.support})'
+        await ctx.send(embed=e)
+
+
 def setup(bot):
     bot.add_cog(Utility(bot))
