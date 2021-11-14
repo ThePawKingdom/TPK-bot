@@ -37,7 +37,7 @@ async def run():
 
 async def get_prefix(bot, message):
     results = await bot.database.fetchval(f"SELECT prefix FROM guildprefix WHERE guild_id = $1", message.guild.id)
-    prefixes = [";"] if not results else [f"{results}"]
+    prefixes = [">>"] if not results else [f"{results}"]
 
     return commands.when_mentioned_or(*prefixes)(bot, message)
 
