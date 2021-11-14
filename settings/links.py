@@ -1,8 +1,8 @@
 # External links
 
 support = 'https://discord.gg/gPZNGANWCE'
-invite = 'https://tryitands.ee/'  # Has slash commands and bot scope
-plaininvite = 'https://tryitands.ee/'  # Only has bot scope
+invite = 'https://discord.com/api/oauth2/authorize?client_id=909560157116170250&permissions=412384349248&scope=bot%20applications.commands'  # Has slash commands and bot scope
+plaininvite = 'https://discord.com/api/oauth2/authorize?client_id=909560157116170250&permissions=412384349248&scope=bot'  # Only has bot scope
 github = 'https://github.com/BadWolf-Dev/BadWolf-bot'
 
 # User IDs
