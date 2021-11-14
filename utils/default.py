@@ -1,4 +1,8 @@
 import discord
+import random
+import aiohttp
+
+from settings import emotes
 
 def next_level(ctx):
     if str(ctx.guild.premium_tier) == "0":
