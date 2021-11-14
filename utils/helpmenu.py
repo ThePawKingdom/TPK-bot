@@ -85,7 +85,7 @@ class PenguinHelp(commands.HelpCommand):
 
         support = links.support
         invite = links.invite
-        prefixes = "`;`"
+        prefixes = "`>>`"
         s = "Support"
         i = "Bot invite"
         boats = "[discord.boats](https://discord.boats/bot/620990340630970425)"
