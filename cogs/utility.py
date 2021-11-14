@@ -19,9 +19,7 @@ class Utility(commands.Cog, name="Utility"):
 
     @commands.command()
     async def ping(self, ctx):
-        """
-        See BadWolf's latency to discord
-        """
+        """ See BadWolf's latency to discord """
         discord_start = time.monotonic()
         async with aiohttp.ClientSession() as session:
             async with session.get('https://discord.com') as r:
@@ -34,9 +32,7 @@ class Utility(commands.Cog, name="Utility"):
 
     @commands.command(alias=["botinfo"])
     async def about(self, ctx):
-        """
-        Information about BadWolf
-        """
+        """ Information about BadWolf """
         chtypes = Counter(type(c) for c in self.bot.get_all_channels())
         voice = chtypes[discord.channel.VoiceChannel]
         text = chtypes[discord.channel.TextChannel]
@@ -82,9 +78,7 @@ __**Statistics**__
 
     @commands.command(alias=["si"])
     async def serverinfo(self, ctx):
-        """
-        Display information about this server
-        """
+        """ Display information about this server """
         human = sum(not member.bot for member in ctx.guild.members)
         bots = sum(member.bot for member in ctx.guild.members)
         features = ", ".join(ctx.guild.features).lower().replace('_', ' ').title() if len(ctx.guild.features) != 0 else None
@@ -129,9 +123,7 @@ __**Statistics**__
 
     @commands.command(alias=["ui"])
     async def userinfo(self, ctx, user: typing.Union[discord.User, str] = None):
-        """
-        Get info about users on discord
-        """
+        """ Get info about users on discord """
         if user is None:
             user = ctx.author
 
@@ -193,9 +185,7 @@ __**Statistics**__
 
     @commands.command()
     async def roleinfo(self, ctx, role: discord.Role):
-        """
-        Get information about a role
-        """
+        """ Get information about a role """
         position = len(ctx.guild.roles) - role.position
         permissions = dict(role.permissions)
         perms = []
@@ -235,9 +225,7 @@ __**Statistics**__
 
     @commands.command()
     async def invite(self, ctx):
-        """
-        Invite me to your server!
-        """
+        """ Invite me to your server! """
         e = discord.Embed(description=f"You can invite me to your server [here]({links.invite})" + '\n'
                                       f"Invite without slash commands [here]({links.plaininvite})", color=colors.green)
         await ctx.send(embed=e)
@@ -256,6 +244,7 @@ __**Statistics**__
 
     @commands.command()
     async def avatar(self, ctx, *, user: discord.User = None):
+        """ Show someone's avatar """
         if user is None:
             user = ctx.author
 
@@ -277,6 +266,7 @@ __**Statistics**__
     @commands.command()
     @commands.cooldown(1, 30, commands.BucketType.user)
     async def suggest(self, ctx, *, suggestion):
+        """ Make a suggestion for BadWolf """
         channel = await self.bot.fetch_channel(907617618180075580)
 
         if len(suggestion) > 1000:
