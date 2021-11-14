@@ -1,3 +1,4 @@
+import asyncio
 import platform
 import time
 import discord
