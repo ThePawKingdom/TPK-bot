@@ -13,12 +13,14 @@ class Admin(commands.Cog, name="Admin"):
     @commands.group()
     @commands.is_owner()
     async def suggestion(self, ctx):
+        """ Deny/Approve a suggestion """
         if ctx.invoked_subcommand is None:
             await ctx.send_help(ctx.command)
 
     @suggestion.command()
     @commands.is_owner()
     async def approve(self, ctx, msg_id: int, *, reason: commands.clean_content):
+        """ Approve a suggestion """
         suggestion = await self.bot.database.fetch("SELECT * FROM suggestions WHERE msg_id = $1", msg_id)
 
         if not suggestion:
@@ -48,6 +50,7 @@ class Admin(commands.Cog, name="Admin"):
     @suggestion.command()
     @commands.is_owner()
     async def deny(self, ctx, msg_id: int, *, reason: commands.clean_content):
+        """ Deny a suggestion """
         suggestion = await self.bot.database.fetch("SELECT * FROM suggestions WHERE msg_id = $1", msg_id)
 
         if not suggestion:
