@@ -6,7 +6,7 @@ import re
 import typing
 
 import psutil as psutil
-from settings import links, colors
+from settings import links, colors, emotes
 from utils import times, default
 from collections import Counter
 from discord.ext import commands
