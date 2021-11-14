@@ -88,7 +88,7 @@ class PenguinHelp(commands.HelpCommand):
         prefixes = "`>>`"
         s = "Support"
         i = "Bot invite"
-        boats = "[discord.boats](https://discord.boats/bot/620990340630970425)"
+        github = "[BadWolf on github](https://github.com/BadWolf-dev/badwolf)"
         privacy = "[Privacy Policy](https://psychops.tk/legal.php#privacy)"
 
         emb = discord.Embed(color=discord.Color.dark_teal())
@@ -117,7 +117,7 @@ class PenguinHelp(commands.HelpCommand):
             to_react.append(f"{extension.help_icon}")
 
         # emb.set_author(icon_url=self.context.bot.user.avatar.url, name=self.context.bot.user.name)
-        emb.set_thumbnail(url=self.context.bot.user.avatar.url)
+        //emb.set_thumbnail(url=self.context.bot.user.avatar.url)
         emb.add_field(name="Categories:", value="\n".join(exts) + "\n\u200b")
 
         if ctx.guild:
