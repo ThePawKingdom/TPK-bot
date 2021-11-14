@@ -12,4 +12,6 @@ etile = '856910332290007071'
 
 # Channel IDs
 suggestions = 907617618180075580  # Channel to link suggestions to
-mainguild = 907286001188225084
+mainguild = 907286001188225084  # The bot's main support guild
+errors = 909541066011713577  # The channel to send errors to
+guildlog = 909557647664099409  # The channel to log guild join and leaves to
