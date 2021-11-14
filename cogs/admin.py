@@ -77,5 +77,46 @@ class Admin(commands.Cog, name="Admin"):
         except Exception:
             pass
 
+    @commands.command(name="sql")
+    @commands.is_owner()
+    async def sql(self, ctx, *, query):
+        """ Execute psql query """
+        try:
+            if query.__contains__('guild.id'):
+                query = query.replace('guild.id', str(ctx.guild.id))
+            if query.__contains__('author.id'):
+                query = query.replace('author.id', str(ctx.author.id))
+            if query.__contains__('channel.id'):
+                query = query.replace('channel.id', str(ctx.channel.id))
+
+            if not query.lower().startswith("select"):
+                data = await self.bot.database.execute(query)
+                return await ctx.send(data)
+
+            data = await self.bot.database.fetch(query)
+            if not data:
+                return await ctx.send("Table seems to be empty!")
+            columns = []
+            values = []
+            for k in data[0].keys():
+                columns.append(k)
+
+            for y in data:
+                rows = []
+                for v in y.values():
+                    rows.append(v)
+                values.append(rows)
+
+            x = PrettyTable(columns)
+            for d in values:
+                x.add_row(d)
+
+            pages = TextPages(ctx,
+                              text=f'\n{x}')
+            return await pages.paginate()
+        except Exception as e:
+            await ctx.send(e)
+
+
 def setup(bot):
     bot.add_cog(Admin(bot))
