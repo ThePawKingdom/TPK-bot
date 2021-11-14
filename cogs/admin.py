@@ -1,8 +1,9 @@
 import discord
 
+from prettytable import PrettyTable
 from settings import links, colors
 from discord.ext import commands
-
+from utils.paginator import TextPages
 
 class Admin(commands.Cog, name="Admin"):
     def __init__(self, bot):
