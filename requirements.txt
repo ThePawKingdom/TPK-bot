@@ -1,0 +1,7 @@
+aiohttp
+asyncpg
+discord-ext-menus @ git+https://github.com/Rapptz/discord-ext-menus@fbb8803779373357e274e1540b368365fd9d8074
+discord.py @ git+https://github.com/iDevision/enhanced-discord.py@d2adc6c05fafa761f7b8005ba8469ef4b78c188a
+jishaku
+prettytable
+psutil
