@@ -74,3 +74,8 @@ async def feelings(ctx, members, name, list):
             display_list = ', '.join(display_list)
         embed.description=f"**{ctx.author.display_name}** {name} because of **{display_list}**"
     await ctx.send(embed=embed)
+
+def date(target, clock=True):
+    if clock is False:
+        return target.strftime("%d %B %Y")
+    return target.strftime("%d %B %Y, %H:%M")
