@@ -93,7 +93,7 @@ class PenguinHelp(commands.HelpCommand):
 
         emb = discord.Embed(color=discord.Color.dark_teal())
         emb.description = (f"[{s}]({support}) | [{i}]({invite}) "
-                           f"| {boats} | {privacy}\n\n**Made by:** {Josh}\nPrefix: {prefixes}\n\n")
+                           f"| {github} | {privacy}\n\n**Made by:** {Josh}\nPrefix: {prefixes}\n\n")
 
         def check(r, u):
             return u.id in [self.context.author.id, 843866750131109909] and r.message.id == msg.id
@@ -117,7 +117,7 @@ class PenguinHelp(commands.HelpCommand):
             to_react.append(f"{extension.help_icon}")
 
         # emb.set_author(icon_url=self.context.bot.user.avatar.url, name=self.context.bot.user.name)
-        //emb.set_thumbnail(url=self.context.bot.user.avatar.url)
+        emb.set_thumbnail(url=self.context.bot.user.avatar.url)
         emb.add_field(name="Categories:", value="\n".join(exts) + "\n\u200b")
 
         if ctx.guild:
