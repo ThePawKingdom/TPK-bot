@@ -198,6 +198,10 @@ __**Statistics**__
             perms.append("Administrator")
 
         rolemembers = []
+
+        if not role.members:
+            rolemembers.append("None")
+
         for member in role.members:
             rolemembers.append(member.name)
 
