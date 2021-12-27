@@ -6,6 +6,7 @@ invite = 'https://discord.com/api/oauth2/authorize?client_id=909560157116170250&
 plaininvite = 'https://discord.com/api/oauth2/authorize?client_id=909560157116170250&permissions=412384349248&scope=bot'  # Only has bot scope
 # INVITES OBSOLETE #
 github = 'https://github.com/ThePawKingdom/TPK-bot'
+privacy = 'https://psychops.tk/legal.php#collected'
 
 # User IDs
 
