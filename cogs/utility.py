@@ -229,7 +229,7 @@ __**Statistics**__
 
     @commands.command()
     async def privacy(self, ctx):
-        """ Get the privacy policy for BadWolf """
+        """ Get the privacy policy for TPKbot """
         e = discord.Embed(description=f"You can check out our privacy policy [here](https://psychops.tk/legal.php#collected).", color=colors.green)
         await ctx.send(embed=e)
 
