@@ -88,7 +88,7 @@ class PenguinHelp(commands.HelpCommand):
         prefixes = "`>>`"
         s = "Support"
         i = "Bot invite"
-        github = f"[BadWolf on github]({links.github})"
+        github = f"[TPKBot on github]({links.github})"
         privacy = f"[Privacy Policy]({links.privacy})"
 
         emb = discord.Embed(color=discord.Color.dark_teal())
