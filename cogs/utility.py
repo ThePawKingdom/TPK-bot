@@ -20,7 +20,7 @@ class Utility(commands.Cog, name="Utility"):
 
     @commands.command()
     async def ping(self, ctx):
-        """ See BadWolf's latency to discord """
+        """ See TPKBot's latency to discord """
         discord_start = time.monotonic()
         async with aiohttp.ClientSession() as session:
             async with session.get('https://discord.com') as r:
@@ -33,7 +33,7 @@ class Utility(commands.Cog, name="Utility"):
 
     @commands.command(alias=["botinfo"])
     async def about(self, ctx):
-        """ Information about BadWolf """
+        """ Information about TPKBot """
         chtypes = Counter(type(c) for c in self.bot.get_all_channels())
         voice = chtypes[discord.channel.VoiceChannel]
         text = chtypes[discord.channel.TextChannel]
