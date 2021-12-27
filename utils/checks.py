@@ -9,7 +9,7 @@ async def lockdown(ctx):
             return False
         else:
             e = discord.Embed(color=colors.red)
-            e.description = f"BadWolf is currently undergoing maintenance. Please stand by and wait." \
+            e.description = f"TPKBot is currently undergoing maintenance. Please stand by and wait." \
                             f" If you wanna see what's going on or stay updated on the maintenance," \
                             f" you are free to join [our support server]({links.support})"
             await ctx.send(embed=e)
