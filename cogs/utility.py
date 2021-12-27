@@ -45,7 +45,6 @@ class Utility(commands.Cog, name="Utility"):
         storage = psutil.disk_usage('/').total >> 30
         boottime = psutil.boot_time()
         joshua = await self.bot.fetch_user(links.joshua)
-        etile = await self.bot.fetch_user(links.etile)
         users = sum(x.member_count for x in self.bot.guilds)
 
         e = discord.Embed(color=discord.Color.dark_teal())
