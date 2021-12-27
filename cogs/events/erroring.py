@@ -39,7 +39,7 @@ class Erroring(commands.Cog, name="Erroring"):
             return await logchannel.send(f":warning: **{ctx.author} ({ctx.author.id}) had a {err.retry_after:.0f} second cooldown at {datetime.now().__format__('%a %d %b %y, %H:%M')}.**")
 
         if isinstance(err, commands.NotOwner):
-            return await ctx.send(f"**{emotes.crossmark} Only BadWolf team members can use this command.**", delete_after=5, ephemeral=True)
+            return await ctx.send(f"**{emotes.crossmark} Only TPKBot team members can use this command.**", delete_after=5, ephemeral=True)
 
         if isinstance(err, commands.UserNotFound):
             return await ctx.send(f"**:warning: I could not find the specified user - {err.argument}**", delete_after=5, ephemeral=True)
